@@ -1,6 +1,6 @@
 {
   "name": "email-cg-lib",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Email to send emails with basic information.",
   "main": "index.js",
   "scripts": {

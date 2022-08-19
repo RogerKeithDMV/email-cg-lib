@@ -4,8 +4,6 @@ const {objecteMailReq,objecteMailOpt} = require('./objects');
 
 module.exports.email = async (msg, cfg, test = false) => {
   return new Promise(async (resolve, reject) => {
-    let transporter=null;
-
     try {
       log.info('Inside email lib');
       log.debug('Msg=', JSON.stringify(msg));
@@ -24,7 +22,7 @@ module.exports.email = async (msg, cfg, test = false) => {
         await helpers.validProperties(extraProp, data, cfg, true);
         properties = {...properties, ...extraProp};
 
-        transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
           //Para GMail ---> host: 'smtp.gmail.com', port: 465,
           //Para Outlook ---> "host":"smtp.gmail.com", "port":465
           host: properties.host,
@@ -46,25 +44,21 @@ module.exports.email = async (msg, cfg, test = false) => {
           text: properties.text
         };
                   
-        await transporter.sendMail(mailOptions, function(error, info){
-          if (error) {return reject(error);}
-          else {
-            log.info(constants.SUCCESS_TRANS, info.response);
-            return resolve({response:'Mail sended: ' + info.response});}
+        const result  = transporter.sendMail(mailOptions, function(error, info){
+          if (error) {reject(error);}
+          else {resolve({response:'Correo enviado: ' + info.response});}
+          transporter.close();
         });
 
-        //resolve(result);
+        resolve(result);
 
-        
+        log.info(constants.SUCCESS_TRANS, result)
               
       }
     }
     catch (e) {
         log.error(e);
         reject(e);
-    }
-    finally{
-      transporter.close();
     }
   });
 };
