@@ -1,6 +1,6 @@
 {
   "name": "email-cg-lib",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Email to send emails with basic information.",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,6 @@
   "dependencies": {
     "msgbroker-nxg-cg": "^0.1.0",
     "nodemailer": "^6.7.5",
-    "utils-nxg-cg": "^1.0.7"
+    "utils-nxg-cg": "^1.0.10"
   }
 }
